@@ -16,16 +16,31 @@ class App extends Component {
         done : false
       },
       {
-        id :1,
+        id :3,
         title : 'Malang',
-        done : true
+        done : false
       }
     ]
   }
+
+  delTodo = (id) =>{
+    this.setState({todos : [...this.state.todos.filter(todo => todo.id !== id)]});
+  }
+
+
+  markComplete = (id) => {
+    this.setState({todos: this.state.todos.map(todo =>{
+      if(todo.id === id){
+        todo.done = !todo.done;
+      }
+      return todo;
+    })  });
+  }
+
   render(){
     return (
       <div className="App">
-        <Todos todos = {this.state.todos}/>
+        <Todos todos = {this.state.todos} markComplete = {this.markComplete} delTodo = {this.delTodo}/>
       </div>
     );
   }
